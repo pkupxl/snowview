@@ -1,11 +1,11 @@
 import * as $ from 'jquery';
 import actionCreatorFactory from 'typescript-fsa';
 import bindThunkAction from 'typescript-fsa-redux-thunk';
-import { CypherQueryResult, DocumentResult, Neo4jRelation } from '../model';
+import { CypherQueryResult, DocumentResult, Neo4jRelation,IssueResult,CommitResult} from '../model';
 import { Neo4jNode } from '../model';
 import { RootState } from './reducer';
 import * as _ from 'lodash';
-import { CODE_SEARCH_URL, DOCUMENT_SEARCH_URL, NODE_INFO_URL, RELATION_LIST_URL } from '../config';
+import { CODE_SEARCH_URL, DOCUMENT_SEARCH_URL, NODE_INFO_URL, RELATION_LIST_URL, ISSUE_SEARCH_URL, COMMIT_SEARCH_URL} from '../config';
 
 const actionCreator = actionCreatorFactory();
 
@@ -80,3 +80,20 @@ export const fetchGraphWorker = bindThunkAction(
     dispatch(addShownRelations(relations));
     return {};
   });
+
+export const fetchIssue = actionCreator.async<{ project: string, query: string }, IssueResult[]>('FETCH_ISSUE');
+export const fetchIssueWorker = bindThunkAction(
+    fetchIssue ,
+    async (params) => {
+        return await $.post(ISSUE_SEARCH_URL, params);
+    }
+);
+
+
+export const fetchCommit = actionCreator.async<{ project: string, query: string }, CommitResult[]>('FETCH_COMMIT');
+export const fetchCommitWorker = bindThunkAction(
+    fetchCommit ,
+    async (params) => {
+        return await $.post(COMMIT_SEARCH_URL, params);
+    }
+);

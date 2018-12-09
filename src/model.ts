@@ -81,3 +81,28 @@ export interface ProjectInfo {
   name: string;
   description: string;
 }
+export interface IssueProperty{
+  summary:string;
+  crearorName:string;
+  description:string;
+  _title:string;
+  createdDate:string;
+}
+export interface IssueResult {
+  id:number;
+  label: string;
+  properties:IssueProperty;
+}
+
+export interface CommitProperty{
+  commitTime:number;
+  name:string;
+  message:string;
+  diffSummary:string;
+}
+
+export interface CommitResult{
+  id:number;
+  label:string;
+  properties:CommitProperty;
+}

@@ -1,10 +1,13 @@
-export const SERVER_URL = 'http://106.75.143.22:8004';
+export const SERVER_URL = 'http://localhost:8004';
 export const PROJECTS_INFO_URL = `${SERVER_URL}/projects`;
 export const DOCUMENT_SEARCH_URL = `${SERVER_URL}/docSearch`;
 export const CODE_SEARCH_URL = `${SERVER_URL}/codeSearch`;
 export const NODE_INFO_URL = `${SERVER_URL}/node`;
 export const RELATION_LIST_URL = `${SERVER_URL}/relationList`;
 export const NAV_URL = `${SERVER_URL}/nav`;
+export const ISSUE_SEARCH_URL = `${SERVER_URL}/issueSearch`;
+export const COMMIT_SEARCH_URL = `${SERVER_URL}/commitSearch`;
+
 
 export const DOC_PREDEFINED_QUERIES = [
   'How to write a document into an index?',

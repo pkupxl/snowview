@@ -12,8 +12,8 @@ const matTableStyle = (theme: Theme) => ({
   },
   table: {
     marginBottom: '0',
-    width: '100%',
-    maxWidth: '100%',
+    width: '40%',
+    maxWidth: '40%',
     backgroundColor: 'transparent',
     borderSpacing: '0',
     borderCollapse: 'collapse'

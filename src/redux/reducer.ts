@@ -1,9 +1,9 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import {
-  fetchDocumentResult
+    fetchDocumentResult, fetchIssue,fetchCommit
 } from './action';
 import { combineReducers } from 'redux';
-import { DocumentResult } from '../model';
+import { DocumentResult ,IssueResult ,CommitResult} from '../model';
 import { show } from 'js-snackbar';
 import { graph, GraphState } from './graphReducer';
 
@@ -26,10 +26,23 @@ export interface DocumentResultState {
   result?: DocumentResult[];
 }
 
+export interface IssueResultState {
+    fetching: boolean;
+    query: string;
+    result?: IssueResult[];
+}
+
+export interface CommitResultState{
+    fetching:boolean;
+    query:string;
+    result?:CommitResult[];
+}
 export interface RootState {
   fetchingRandomQuestion: boolean;
   graph: GraphState;
   documentResult: DocumentResultState;
+  issueResult:IssueResultState;
+  commitResult:CommitResultState;
 }
 
 const documentResult =
@@ -46,6 +59,25 @@ const documentResult =
     .case(fetchDocumentResult.failed, (state, payload) =>
       withError('Failed to rank', {fetching: false, query: payload.params.query}));
 
+
+const issueResult =
+    reducerWithInitialState<IssueResultState>({fetching: false, query: ''})
+        .case(fetchIssue.started, (state, payload) => ({fetching: true, query: payload.query}))
+        .case(fetchIssue.done, (state, payload) => ({ fetching: false, query: payload.params.query, result: payload.result
+        }))
+        .case(fetchIssue.failed, (state, payload) =>
+            withError('Failed to present', {fetching: false, query: payload.params.query}));
+
+
+
+const commitResult =
+    reducerWithInitialState<CommitResultState>({fetching: false, query: ''})
+        .case(fetchCommit.started, (state, payload) => ({fetching: true, query: payload.query}))
+        .case(fetchCommit.done, (state, payload) => ({ fetching: false, query: payload.params.query, result: payload.result
+        }))
+        .case(fetchCommit.failed, (state, payload) =>
+            withError('Failed to present', {fetching: false, query: payload.params.query}));
+
 export const appReducer = combineReducers({
-  graph, documentResult
+  graph, documentResult ,issueResult, commitResult
 });

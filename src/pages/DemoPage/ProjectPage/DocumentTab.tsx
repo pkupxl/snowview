@@ -22,7 +22,7 @@ const styles = (theme: Theme) => ({
 }) as React.CSSProperties;
 
 const mapStateToProps = (state: RootState) => ({
-  documentResult: state.documentResult
+    documentResult: state.documentResult
 });
 
 interface DocumentTabRouteProps {

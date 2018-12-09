@@ -12,7 +12,19 @@ const container = {
   paddingRight: '60px',
   paddingLeft: '60px',
 };
+const leftcontainer = {
+    width: '45%',
+    maxwidth: '45%',
+    paddingRight: '%5',
+    paddingLeft: '%5',
+};
 
+const rightcontainer = {
+    width: '45%',
+    maxwidth: '45%',
+    paddingRight: '%5',
+    paddingLeft: '%5',
+};
 const flexContainer = {
   alignItems: 'center',
   display: 'flex',
@@ -158,5 +170,7 @@ export {
   purpleCardHeader,
   cardActions,
   cardHeader,
-  defaultBoxShadow
+  defaultBoxShadow,
+    leftcontainer,
+    rightcontainer
 };
