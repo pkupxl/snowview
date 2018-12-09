@@ -1,14 +1,15 @@
 import * as React from 'react';
-import { LinearProgress, withStyles, WithStyles } from 'material-ui';
+import {withStyles, WithStyles } from 'material-ui';
 import { Theme } from 'material-ui/styles';
 import { IssueResultState, CommitResultState , RootState } from '../../../redux/reducer';
-import RankRow from '../../../components/RankRow';
 import CodeInputForm from '../../../components/CodeInputForm';
 import { connect } from 'react-redux';
 import { fetchIssueWorker ,fetchCommitWorker} from '../../../redux/action';
-import { RouteComponentProps } from 'react-router';
-import MatTable from '../../../components/MatTable/MatTable';
+import {Route, RouteComponentProps, Switch} from 'react-router';
 import { container,leftcontainer,rightcontainer } from '../../../variables/styles';
+import CommitTab from "./CommitTab";
+import IssueTab from "./IssueTab";
+import {Link} from "react-router-dom";
 
 const styles = (theme: Theme) => ({
     container: {
@@ -45,7 +46,7 @@ type CodeTraceTabStyle = WithStyles<'container' | 'progress' | 'leftcontainer' |
 class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle, {}> {
 
     render() {
-        const {classes, issueResult ,commitResult} = this.props;
+        const { issueResult} = this.props;
         const project = this.props.match.params.project;
 
         return (
@@ -55,37 +56,26 @@ class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle
                     issueCallback={(param: { query: string }) => fetchIssueWorker({project, query: param.query})}
                     commitCallback={(param: { query: string }) => fetchCommitWorker({project, query: param.query})}
                 />
-                <div className={classes.leftcontainer}>
-                    {issueResult.fetching && <LinearProgress className={classes.progress}/>}
-                    {issueResult.result != null &&
-                    <MatTable
-                        tableHead={['Rank', 'ID', 'Answer']}
-                        tableData={issueResult.result.map(r => ({
-                            columns: [`${r.properties.crearorName}`, `${r.properties.createdDate}`, <RankRow
-                                key={r.id}
-                                initExpand={false}
-                                title={'['  + r.label + '] ' + (r.properties.summary == null ? "" : r.properties.summary)}
-                                detail={r.properties.description}
-                            />]
-                        }))}
-                    />}
+                <div>
+                         <Link to={{
+                            pathname: `/demo/${project}/codetrace`
+                        }}>
+                            ISSUE
+                        </Link>
+                </div>
+                <div>
+                       <Link to={{
+                            pathname: `/demo/${project}/codetrace/commit`
+                        }}>
+                            COMMIT
+                        </Link>
                 </div>
 
-                <div className={classes.rightcontainer}>
-                    {commitResult.fetching && <LinearProgress className={classes.progress}/>}
-                    {commitResult.result != null &&
-                    <MatTable
-                        tableHead={['commitTime', 'id', 'message']}
-                        tableData={commitResult.result.map(r => ({
-                            columns: [`${r.properties.commitTime}`, `${r.properties.name}`, <RankRow
-                                key={r.id}
-                                initExpand={false}
-                                title={'['  + r.label + '] ' + (r.properties.message == null ? "" : r.properties.message)}
-                                detail={r.properties.diffSummary}
-                            />]
-                        }))}
-                    />}
-                </div>
+
+                <Switch>
+                    <Route exact={true} path='/demo/:project/codetrace' component={IssueTab}/>
+                    <Route path='/demo/:project/codetrace/commit' component={CommitTab}/>
+                </Switch>
             </div>
         );
     }

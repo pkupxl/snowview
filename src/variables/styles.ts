@@ -13,15 +13,15 @@ const container = {
   paddingLeft: '60px',
 };
 const leftcontainer = {
-    width: '45%',
-    maxwidth: '45%',
+    width: '100%',
+    maxwidth: '100%',
     paddingRight: '%5',
     paddingLeft: '%5',
 };
 
 const rightcontainer = {
-    width: '45%',
-    maxwidth: '45%',
+    width: '100%',
+    maxwidth: '100%',
     paddingRight: '%5',
     paddingLeft: '%5',
 };

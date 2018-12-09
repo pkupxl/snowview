@@ -21,7 +21,8 @@ const styles = (theme: Theme) => ({
     },
 });
 
-interface CodeInputFormProps {
+
+interface CodeInputFormProps{
     query?: string;
     issueCallback: Function;
     commitCallback: Function;
@@ -30,7 +31,7 @@ interface CodeInputFormProps {
 
 type CodeInputFormStyles = WithStyles<'container' | 'form' | 'search'>;
 
-class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormStyles, { input: string }> {
+class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormStyles , { input: string }> {
     state = {
         input: ''
     };
