@@ -6,25 +6,25 @@ import CodeInputForm from '../../../components/CodeInputForm';
 import { connect } from 'react-redux';
 import { fetchIssueWorker ,fetchCommitWorker} from '../../../redux/action';
 import {Route, RouteComponentProps, Switch} from 'react-router';
-import { container,leftcontainer,rightcontainer } from '../../../variables/styles';
+import { container} from '../../../variables/styles';
 import CommitTab from "./CommitTab";
 import IssueTab from "./IssueTab";
+import Button from 'material-ui/Button';
 import {Link} from "react-router-dom";
 
 const styles = (theme: Theme) => ({
     container: {
         ...container,
     },
-    leftcontainer:{
-        ...leftcontainer,
-    },
-    rightcontainer:{
-        ...rightcontainer,
-    },
     progress: {
         flexGrow: 1,
         margin: theme.spacing.unit * 4
-    }
+    },
+    right:{
+        right:'100px',
+        display:'fixed',
+        float:'right',
+    },
 }) as React.CSSProperties;
 
 const mapStateToProps = (state: RootState) => ({
@@ -41,12 +41,12 @@ interface CodeTraceTabProps extends RouteComponentProps<CodeTraceTabRouteProps> 
     commitResult: CommitResultState;
 }
 
-type CodeTraceTabStyle = WithStyles<'container' | 'progress' | 'leftcontainer' | 'rightcontainer'>;
+type CodeTraceTabStyle = WithStyles<'container' | 'progress' | 'right'>;
 
 class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle, {}> {
 
     render() {
-        const { issueResult} = this.props;
+        const { issueResult ,classes} = this.props;
         const project = this.props.match.params.project;
 
         return (
@@ -56,20 +56,26 @@ class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle
                     issueCallback={(param: { query: string }) => fetchIssueWorker({project, query: param.query})}
                     commitCallback={(param: { query: string }) => fetchCommitWorker({project, query: param.query})}
                 />
-                <div>
-                         <Link to={{
+                <div className={classes.right}>
+                    <Button >
+                        <Link to={{
                             pathname: `/demo/${project}/codetrace`
                         }}>
                             ISSUE
                         </Link>
-                </div>
-                <div>
-                       <Link to={{
+                    </Button>
+                    <Button >
+                        <Link to={{
                             pathname: `/demo/${project}/codetrace/commit`
                         }}>
                             COMMIT
                         </Link>
+                    </Button>
+
                 </div>
+               {/* <div>
+
+                </div>*/}
 
 
                 <Switch>
