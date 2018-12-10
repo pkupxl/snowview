@@ -38,7 +38,7 @@ class IssueTab extends React.Component<IssueTabProps & IssueTabStyle, {}> {
         return (
                 <div className={classes.container}>
                     {issueResult.fetching && <LinearProgress className={classes.progress}/>}
-                    {issueResult.result != null &&
+                    {issueResult.result &&
                     <MatTable
                         tableHead={['Id', 'Date', 'summary']}
                         tableData={issueResult.result.map(r => ({

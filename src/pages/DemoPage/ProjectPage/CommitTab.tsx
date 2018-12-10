@@ -39,7 +39,7 @@ class CommitTab extends React.Component<CommitTabProps & CommitTabStyle, {}> {
         return (
                 <div className={classes.container}>
                     {commitResult.fetching && <LinearProgress className={classes.progress}/>}
-                    {commitResult.result != null &&
+                    {commitResult.result  &&
                     <MatTable
                         tableHead={['Id', 'time', 'message']}
                         tableData={commitResult.result.map(r => ({
