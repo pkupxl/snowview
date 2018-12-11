@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { LinearProgress, withStyles, WithStyles } from 'material-ui';
 import { Theme } from 'material-ui/styles';
-import {CommitResultState , RootState } from '../../../redux/reducer';
+import {CommitResultState, RootState } from '../../../redux/reducer';
 import RankRow from '../../../components/RankRow';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import MatTable from '../../../components/MatTable/MatTable';
+import Footer from '../../../components/Footer/Footer';
 //import { container } from '../../../variables/styles';
 
 const styles = (theme: Theme) => ({
@@ -14,7 +15,7 @@ const styles = (theme: Theme) => ({
 //        width:'95%',
 /*        float:'right',
         display:'fixed',*/
-        paddingleft:'20px'
+        paddingleft:'10px'
     },
     progress: {
         flexGrow: 1,
@@ -45,16 +46,17 @@ class CommitTab extends React.Component<CommitTabProps & CommitTabStyle, {}> {
                     {commitResult.fetching && <LinearProgress className={classes.progress}/>}
                     {commitResult.result  &&
                     <MatTable
-                        tableHead={['Id', 'time', 'commitor','message']}
+                        tableHead={['Commitor', 'time', 'Id']}
                         tableData={commitResult.result.map(r => ({
-                            columns: [`${r.name}`, `${r.commitTime}`,`${r.gitUser}`, <RankRow
+                            columns: [`${r.gitUser}`, `${r.commitTime}`, <RankRow
                                 key={r.id}
                                 initExpand={false}
-                                title={(r.commitMessage == null ? "" : r.commitMessage)}
-                                detail={r.diffMessage}
+                                title={(r.name == null ? "" : r.name)}
+                                detail={r.commitMessage}
                             />]
                         }))}
                     />}
+                    <Footer/>
                 </div>
         );
     }

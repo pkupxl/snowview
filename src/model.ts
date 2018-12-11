@@ -82,11 +82,13 @@ export interface ProjectInfo {
   description: string;
 }
 export interface IssueProperty{
-  summary:string;
-  crearorName:string;
+  summary: string;
+  crearorName: string;
   description:string;
   _title:string;
   createdDate:string;
+    type:string;
+    status:string;
 }
 export interface IssueResult {
   id:number;

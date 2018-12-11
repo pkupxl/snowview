@@ -21,12 +21,12 @@ const styles = (theme: Theme) => ({
         margin: theme.spacing.unit * 4
     },
     right:{
-        paddingTop:'40px',
-      //  paddingleft:'1px',
-        paddingright:'3px',
-        width:'55%',
-        float:'right',
-        display:'fixed',
+     //   paddingTop:'20px',
+        paddingleft:'30%',
+   //     paddingright:'3px',
+        width:'90%',
+    /*    float:'right',
+        display:'fixed',*/
 
     },
 }) as React.CSSProperties;

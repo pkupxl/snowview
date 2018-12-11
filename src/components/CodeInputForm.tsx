@@ -16,9 +16,9 @@ const styles = (theme: Theme) => ({
         margin: theme.spacing.unit * 2
     },
     form: {
-        paddingTop:'40px',
-        width: '40%',
-        height: '120%',
+        paddingTop:'15px',
+        width: '95%',
+        height: '50%',
  //       left:'100px',
  //       display:'fixed',
         float:'left',

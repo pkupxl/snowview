@@ -4,7 +4,7 @@ import Sidebar from './components/Sidebar/Sidebar';
 import appRoutes from './routes/app';
 import { withStyles } from 'material-ui';
 import appStyle, { AppStyle } from './variables/styles/AppStyle';
-import Footer from './components/Footer/Footer';
+//import Footer from './components/Footer/Footer';
 
 const image = require('./assets/img/sidebar.jpg');
 const logo = require('./assets/img/logo.png');
@@ -24,7 +24,7 @@ class App extends React.Component<AppStyle, {}> {
               )}
             </Switch>
           </div>
-          <Footer/>
+         {/* <Footer/>*/}
         </div>
       </div>
     );

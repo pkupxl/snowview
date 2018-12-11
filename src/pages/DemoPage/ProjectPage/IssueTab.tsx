@@ -6,6 +6,7 @@ import RankRow from '../../../components/RankRow';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import MatTable from '../../../components/MatTable/MatTable';
+import Footer from '../../../components/Footer/Footer';
 //import { container } from '../../../variables/styles';
 
 const styles = (theme: Theme) => ({
@@ -14,7 +15,7 @@ const styles = (theme: Theme) => ({
   //      width:'95%',
 /*        float:'right',
         display:'fixed',*/
-        paddingleft:'20px'
+        paddingleft:'10px'
     },
     progress: {
         flexGrow: 1,
@@ -44,9 +45,9 @@ class IssueTab extends React.Component<IssueTabProps & IssueTabStyle, {}> {
                     {issueResult.fetching && <LinearProgress className={classes.progress}/>}
                     {issueResult.result &&
                     <MatTable
-                        tableHead={['Id', 'Date', 'summary']}
+                        tableHead={['Id', 'Date', 'Type', 'Status' , 'summary']}
                         tableData={issueResult.result.map(r => ({
-                            columns: [`${r.properties._title}`, `${r.properties.createdDate}`, <RankRow
+                            columns: [`${r.properties._title}`, `${r.properties.createdDate}`, `${r.properties.type}`, `${r.properties.status}`,<RankRow
                                 key={r.id}
                                 initExpand={false}
                                 title={'['  + r.label + '] ' + (r.properties.summary == null ? "" : r.properties.summary)}
@@ -54,6 +55,7 @@ class IssueTab extends React.Component<IssueTabProps & IssueTabStyle, {}> {
                             />]
                         }))}
                     />}
+                    <Footer/>
                 </div>
         );
     }
