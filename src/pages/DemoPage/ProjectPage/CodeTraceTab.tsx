@@ -22,10 +22,12 @@ const styles = (theme: Theme) => ({
     },
     right:{
         paddingTop:'40px',
-        paddingleft:'20px',
-        width:'58%',
+      //  paddingleft:'1px',
+        paddingright:'3px',
+        width:'55%',
         float:'right',
         display:'fixed',
+
     },
 }) as React.CSSProperties;
 

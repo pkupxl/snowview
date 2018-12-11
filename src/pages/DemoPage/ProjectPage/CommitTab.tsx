@@ -11,10 +11,10 @@ import MatTable from '../../../components/MatTable/MatTable';
 const styles = (theme: Theme) => ({
     container: {
 //        ...container,
- /*       width:'50%',
-        float:'right',
+//        width:'95%',
+/*        float:'right',
         display:'fixed',*/
-        paddingleft:'50px'
+        paddingleft:'20px'
     },
     progress: {
         flexGrow: 1,
@@ -45,13 +45,13 @@ class CommitTab extends React.Component<CommitTabProps & CommitTabStyle, {}> {
                     {commitResult.fetching && <LinearProgress className={classes.progress}/>}
                     {commitResult.result  &&
                     <MatTable
-                        tableHead={['Id', 'time', 'message']}
+                        tableHead={['Id', 'time', 'commitor','message']}
                         tableData={commitResult.result.map(r => ({
-                            columns: [`${r.properties.name.substring(0,7)}`, `${r.properties.commitTime}`, <RankRow
+                            columns: [`${r.name}`, `${r.commitTime}`,`${r.gitUser}`, <RankRow
                                 key={r.id}
                                 initExpand={false}
-                                title={(r.properties.message == null ? "" : r.properties.message)}
-                                detail={r.properties.diffSummary}
+                                title={(r.commitMessage == null ? "" : r.commitMessage)}
+                                detail={r.diffMessage}
                             />]
                         }))}
                     />}

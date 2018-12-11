@@ -94,15 +94,13 @@ export interface IssueResult {
   properties:IssueProperty;
 }
 
-export interface CommitProperty{
-  commitTime:number;
-  name:string;
-  message:string;
-  diffSummary:string;
-}
-
 export interface CommitResult{
   id:number;
-  label:string;
-  properties:CommitProperty;
+  name:string;
+  commitTime:string;
+  commitMessage:string;
+  gitUser:string;
+  gitUserEmail:string;
+  diffSummary:string;
+  diffMessage:string;
 }

@@ -11,10 +11,10 @@ import MatTable from '../../../components/MatTable/MatTable';
 const styles = (theme: Theme) => ({
     container: {
    //     ...container,
-    /*    width:'50%',
-        float:'right',
+  //      width:'95%',
+/*        float:'right',
         display:'fixed',*/
-        paddingleft:'50px'
+        paddingleft:'20px'
     },
     progress: {
         flexGrow: 1,
