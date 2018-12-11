@@ -21,9 +21,11 @@ const styles = (theme: Theme) => ({
         margin: theme.spacing.unit * 4
     },
     right:{
-        right:'100px',
-        display:'fixed',
+        paddingTop:'40px',
+        paddingleft:'20px',
+        width:'58%',
         float:'right',
+        display:'fixed',
     },
 }) as React.CSSProperties;
 
@@ -61,27 +63,22 @@ class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle
                         <Link to={{
                             pathname: `/demo/${project}/codetrace`
                         }}>
-                            ISSUE
+                            COMMIT
                         </Link>
                     </Button>
                     <Button >
                         <Link to={{
-                            pathname: `/demo/${project}/codetrace/commit`
+                            pathname: `/demo/${project}/codetrace/issue`
                         }}>
-                            COMMIT
+                            ISSUE
                         </Link>
                     </Button>
 
+                    <Switch>
+                        <Route path='/demo/:project/codetrace/issue' component={IssueTab}/>
+                        <Route exact={true} path='/demo/:project/codetrace' component={CommitTab}/>
+                    </Switch>
                 </div>
-               {/* <div>
-
-                </div>*/}
-
-
-                <Switch>
-                    <Route exact={true} path='/demo/:project/codetrace' component={IssueTab}/>
-                    <Route path='/demo/:project/codetrace/commit' component={CommitTab}/>
-                </Switch>
             </div>
         );
     }

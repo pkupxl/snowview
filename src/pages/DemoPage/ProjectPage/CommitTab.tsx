@@ -6,11 +6,15 @@ import RankRow from '../../../components/RankRow';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import MatTable from '../../../components/MatTable/MatTable';
-import { container } from '../../../variables/styles';
+//import { container } from '../../../variables/styles';
 
 const styles = (theme: Theme) => ({
     container: {
-        ...container,
+//        ...container,
+ /*       width:'50%',
+        float:'right',
+        display:'fixed',*/
+        paddingleft:'50px'
     },
     progress: {
         flexGrow: 1,

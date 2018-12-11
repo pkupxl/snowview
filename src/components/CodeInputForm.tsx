@@ -1,17 +1,27 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Input, withStyles, WithStyles } from 'material-ui';
+import {  withStyles, WithStyles } from 'material-ui';
 import { RootState } from '../redux/reducer';
 import { Dispatch } from 'redux';
 import { Theme } from 'material-ui/styles';
-import { ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent } from 'react';
+import AceEditor from 'react-ace';
+import 'brace/mode/java';
+import 'brace/theme/github';
+import Button from "material-ui/Button/Button";
+import RegularCard from "./Cards/RegularCard";
 
 const styles = (theme: Theme) => ({
     container: {
         margin: theme.spacing.unit * 2
     },
     form: {
-        width: '100%',
+        paddingTop:'40px',
+        width: '40%',
+        height: '120%',
+ //       left:'100px',
+ //       display:'fixed',
+        float:'left',
     },
     search: {
         marginLeft: theme.spacing.unit * 2,
@@ -19,6 +29,10 @@ const styles = (theme: Theme) => ({
         width: `calc(100% - ${theme.spacing.unit * 4}px)`,
         flex: 1,
     },
+    button:{
+        margin: theme.spacing.unit,
+        float:'right',
+    }
 });
 
 
@@ -29,7 +43,7 @@ interface CodeInputFormProps{
     dispatch: Dispatch<RootState>;
 }
 
-type CodeInputFormStyles = WithStyles<'container' | 'form' | 'search'>;
+type CodeInputFormStyles = WithStyles<'container' | 'form' | 'search' | 'button'>;
 
 class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormStyles , { input: string }> {
     state = {
@@ -44,7 +58,7 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
         this.setState({input: nextProps.query || ''});
     }
 
-    handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    handleSubmit = (event: any) => {
         event.preventDefault();
         const {dispatch, issueCallback,commitCallback} = this.props;
 
@@ -52,22 +66,29 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
         dispatch(commitCallback({query: this.state.input}));
     }
 
-    handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        this.setState({input: event.target.value});
+    handleChange = (s:string,event: ChangeEvent<HTMLInputElement>) => {
+        this.setState({input: s});
     }
 
     render() {
-        const {classes} = this.props;
+        const {classes } = this.props;
         return (
-            <form className={classes.form} onSubmit={this.handleSubmit}>
-                <Input
-                    className={classes.search}
-                    type="search"
-                    placeholder="input code here..."
+            <div className={classes.form}>
+                <RegularCard headerColor="blue" cardTitle="请输入代码:">
+                <AceEditor
+                    mode="java"
+                    theme="github"
                     value={this.state.input}
+                    name="UNIQUE_ID_OF_DIV"
+                    editorProps={{$blockScrolling: true}}
                     onChange={this.handleChange}
+                    width={'100%'}
                 />
-            </form>
+                <Button color="primary" className={classes.button} onClick={this.handleSubmit}>
+                    提交
+                </Button>
+                </RegularCard>
+            </div>
         );
     }
 }
