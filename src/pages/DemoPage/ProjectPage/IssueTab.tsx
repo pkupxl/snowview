@@ -45,9 +45,9 @@ class IssueTab extends React.Component<IssueTabProps & IssueTabStyle, {}> {
                     {issueResult.fetching && <LinearProgress className={classes.progress}/>}
                     {issueResult.result &&
                     <MatTable
-                        tableHead={['Id', 'Date', 'Type', 'Status' , 'summary']}
+                        tableHead={['Id', 'Date', 'summary']}
                         tableData={issueResult.result.map(r => ({
-                            columns: [`${r.properties._title}`, `${r.properties.createdDate}`, `${r.properties.type}`, `${r.properties.status}`,<RankRow
+                            columns: [`${r.properties._title}`, `${r.properties.createdDate}`,<RankRow
                                 key={r.id}
                                 initExpand={false}
                                 title={'['  + r.label + '] ' + (r.properties.summary == null ? "" : r.properties.summary)}

@@ -46,13 +46,13 @@ class CommitTab extends React.Component<CommitTabProps & CommitTabStyle, {}> {
                     {commitResult.fetching && <LinearProgress className={classes.progress}/>}
                     {commitResult.result  &&
                     <MatTable
-                        tableHead={['Commitor', 'time', 'Id']}
+                        tableHead={['Commitor', 'time', 'Message']}
                         tableData={commitResult.result.map(r => ({
                             columns: [`${r.gitUser}`, `${r.commitTime}`, <RankRow
                                 key={r.id}
                                 initExpand={false}
-                                title={(r.name == null ? "" : r.name)}
-                                detail={r.commitMessage}
+                                title={(r.commitMessage == null ? "" : r.commitMessage)}
+                                detail={r.diffSummary}
                             />]
                         }))}
                     />}
