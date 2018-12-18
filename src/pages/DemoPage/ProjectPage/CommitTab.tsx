@@ -52,7 +52,7 @@ class CommitTab extends React.Component<CommitTabProps & CommitTabStyle, {}> {
                                 key={r.id}
                                 initExpand={false}
                                 title={(r.commitMessage == null ? "" : r.commitMessage)}
-                                detail={r.diffSummary}
+                                detail={r.diffMessage}
                             />]
                         }))}
                     />}
