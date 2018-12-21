@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/ace-diff": "^2.1.0",
     "@types/chance": "^0.7.35",
     "@types/classnames": "^2.2.6",
     "@types/d3": "^4.11.1",
@@ -12,6 +13,7 @@
     "@types/react-redux": "^5.0.12",
     "@types/react-router-dom": "^4.2.2",
     "@types/react-swipeable-views": "^0.12.1",
+    "ace-diff": "^2.3.0",
     "chance": "^1.0.12",
     "classnames": "^2.2.6",
     "d3": "^4.11.0",
