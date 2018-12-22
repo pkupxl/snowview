@@ -10,6 +10,8 @@ import 'brace/mode/java';
 import 'brace/theme/github';
 import Button from "material-ui/Button/Button";
 import RegularCard from "./Cards/RegularCard";
+//import * as AceDiff from 'ace-diff';
+import 'ace-diff/dist/ace-diff.min.css';
 
 const styles = (theme: Theme) => ({
     container: {
@@ -32,6 +34,13 @@ const styles = (theme: Theme) => ({
     button:{
         margin: theme.spacing.unit,
         float:'right',
+    },
+
+    acediff:{
+        height:'30%',
+        bottom:'0px',
+        width:'100%',
+        background:'#000000',
     }
 });
 
@@ -43,7 +52,7 @@ interface CodeInputFormProps{
     dispatch: Dispatch<RootState>;
 }
 
-type CodeInputFormStyles = WithStyles<'container' | 'form' | 'search' | 'button'>;
+type CodeInputFormStyles = WithStyles<'container' | 'form' | 'search' | 'button' | 'acediff'>;
 
 class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormStyles , { input: string }> {
     state = {
@@ -72,6 +81,8 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
 
     render() {
         const {classes } = this.props;
+
+
         return (
             <div className={classes.form}>
                 <RegularCard headerColor="blue" cardTitle="请输入代码:">
@@ -88,7 +99,9 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
                     提交
                 </Button>
                 </RegularCard>
+
             </div>
+
         );
     }
 }

@@ -12,6 +12,8 @@ import IssueTab from "./IssueTab";
 import Button from 'material-ui/Button';
 import {Link} from "react-router-dom";
 
+
+
 const styles = (theme: Theme) => ({
     container: {
         ...container,
@@ -60,6 +62,7 @@ class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle
                     issueCallback={(param: { query: string }) => fetchIssueWorker({project, query: param.query})}
                     commitCallback={(param: { query: string }) => fetchCommitWorker({project, query: param.query})}
                 />
+
                 <div className={classes.right}>
                     <Button >
                         <Link to={{
