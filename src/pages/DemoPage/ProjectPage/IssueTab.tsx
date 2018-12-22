@@ -51,7 +51,7 @@ class IssueTab extends React.Component<IssueTabProps & IssueTabStyle, {}> {
                                 key={r.id}
                                 initExpand={false}
                                 title={'['  + r.label + '] ' + (r.properties.summary == null ? "" : r.properties.summary)}
-                                detail={r.properties.description}
+                                detail={<pre>{r.properties.description}</pre>}
                             />]
                         }))}
                     />}

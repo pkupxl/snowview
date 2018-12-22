@@ -41,6 +41,7 @@ class CommitTab extends React.Component<CommitTabProps & CommitTabStyle, {}> {
 
     render() {
         const {classes, commitResult} = this.props;
+
         return (
                 <div className={classes.container}>
                     {commitResult.fetching && <LinearProgress className={classes.progress}/>}
@@ -52,7 +53,7 @@ class CommitTab extends React.Component<CommitTabProps & CommitTabStyle, {}> {
                                 key={r.id}
                                 initExpand={false}
                                 title={(r.commitMessage == null ? "" : r.commitMessage)}
-                                detail={r.diffMessage}
+                                detail={<pre>{r.diffMessage}</pre>}
                             />]
                         }))}
                     />}

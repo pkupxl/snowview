@@ -35,7 +35,7 @@ const styles = (theme: Theme) => ({
 interface RankRowProps {
   initExpand: boolean;
   title: string;
-  detail: string;
+  detail: string|JSX.Element;
 }
 
 type RankRowStyle = WithStyles<'detail' | 'cellRank' | 'cellMain' | 'cellTitle' | 'highlight'>;
@@ -60,7 +60,8 @@ class RankRow extends React.Component<RankRowProps & RankRowStyle, { expand: boo
         <Typography className={classes.cellTitle}>{`${title}`}</Typography>
         {!this.state.expand && <ExpandMoreIcon onClick={this.handleExpandMore}/>}
         {this.state.expand && <ExpandLessIcon onClick={this.handleExpandLess}/>}
-        {this.state.expand && <div className={classes.detail} dangerouslySetInnerHTML={{__html: detail}}/>}
+        {this.state.expand &&  typeof detail==="string" && <div className={classes.detail} dangerouslySetInnerHTML={{__html: detail}}/>}
+          {this.state.expand &&  typeof detail!=="string" && detail}
       </div>
     );
   }
