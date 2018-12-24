@@ -34,6 +34,7 @@
     "react-swipeable-views": "^0.12.13",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
+    "sweetalert": "^2.1.2",
     "ts-option": "^1.1.4",
     "typeface-roboto": "0.0.45",
     "typescript-fsa": "^2.5.0",

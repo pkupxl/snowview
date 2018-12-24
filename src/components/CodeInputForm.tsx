@@ -12,6 +12,8 @@ import Button from "material-ui/Button/Button";
 import RegularCard from "./Cards/RegularCard";
 //import * as AceDiff from 'ace-diff';
 import 'ace-diff/dist/ace-diff.min.css';
+import swal from 'sweetalert';
+
 
 const styles = (theme: Theme) => ({
     container: {
@@ -79,6 +81,10 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
         this.setState({input: s});
     }
 
+    handleClick(e:MouseEvent) {
+        swal("鼠标点击");
+    }
+
     render() {
         const {classes } = this.props;
 
@@ -94,7 +100,10 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
                     editorProps={{$blockScrolling: true}}
                     onChange={this.handleChange}
                     width={'100%'}
+                 //   onSelection={ (selectedText: string) => {swal(selectedText)}}
                 />
+
+
                 <Button color="primary" className={classes.button} onClick={this.handleSubmit}>
                     提交
                 </Button>
