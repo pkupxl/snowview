@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {withStyles, WithStyles } from 'material-ui';
 import { Theme } from 'material-ui/styles';
-import { IssueResultState, CommitResultState , RootState } from '../../../redux/reducer';
+import { IssueResultState, CommitResultState, RootState, HistoryResultState } from '../../../redux/reducer';
 import CodeInputForm from '../../../components/CodeInputForm';
 import { connect } from 'react-redux';
-import { fetchIssueWorker ,fetchCommitWorker} from '../../../redux/action';
+import { fetchIssueWorker ,fetchCommitWorker ,fetchHistoryWorker} from '../../../redux/action';
 import {Route, RouteComponentProps, Switch} from 'react-router';
 import { container} from '../../../variables/styles';
 import CommitTab from "./CommitTab";
@@ -35,7 +35,8 @@ const styles = (theme: Theme) => ({
 
 const mapStateToProps = (state: RootState) => ({
     issueResult: state.issueResult,
-    commitResult:state.commitResult
+    commitResult:state.commitResult,
+    historyResult:state.historyResult
 });
 
 interface CodeTraceTabRouteProps {
@@ -45,6 +46,7 @@ interface CodeTraceTabRouteProps {
 interface CodeTraceTabProps extends RouteComponentProps<CodeTraceTabRouteProps> {
     issueResult: IssueResultState;
     commitResult: CommitResultState;
+    historyResult: HistoryResultState;
 }
 
 type CodeTraceTabStyle = WithStyles<'container' | 'progress' | 'right'>;
@@ -52,7 +54,7 @@ type CodeTraceTabStyle = WithStyles<'container' | 'progress' | 'right'>;
 class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle, {}> {
 
     render() {
-        const { issueResult ,classes} = this.props;
+        const { issueResult , classes} = this.props;
         const project = this.props.match.params.project;
 
         return (
@@ -61,6 +63,7 @@ class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle
                     query={issueResult.query}
                     issueCallback={(param: { query: string }) => fetchIssueWorker({project, query: param.query})}
                     commitCallback={(param: { query: string }) => fetchCommitWorker({project, query: param.query})}
+                    historyCallback={(param: { query: string }) => fetchHistoryWorker({project, query: param.query})}
                 />
 
                 <div className={classes.right}>

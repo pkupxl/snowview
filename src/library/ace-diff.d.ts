@@ -1,4 +1,3 @@
-
 declare module 'ace-diff' {
 
     export interface AceDiffLROpts {

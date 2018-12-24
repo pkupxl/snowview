@@ -1,11 +1,11 @@
 import * as $ from 'jquery';
 import actionCreatorFactory from 'typescript-fsa';
 import bindThunkAction from 'typescript-fsa-redux-thunk';
-import { CypherQueryResult, DocumentResult, Neo4jRelation,IssueResult,CommitResult} from '../model';
+import { CypherQueryResult, DocumentResult, Neo4jRelation,IssueResult,CommitResult,HistoryResult} from '../model';
 import { Neo4jNode } from '../model';
 import { RootState } from './reducer';
 import * as _ from 'lodash';
-import { CODE_SEARCH_URL, DOCUMENT_SEARCH_URL, NODE_INFO_URL, RELATION_LIST_URL, ISSUE_SEARCH_URL, COMMIT_SEARCH_URL} from '../config';
+import { CODE_SEARCH_URL, DOCUMENT_SEARCH_URL, NODE_INFO_URL, RELATION_LIST_URL, ISSUE_SEARCH_URL, COMMIT_SEARCH_URL,HISTORY_SEARCH_URL} from '../config';
 
 const actionCreator = actionCreatorFactory();
 
@@ -97,3 +97,12 @@ export const fetchCommitWorker = bindThunkAction(
         return await $.post(COMMIT_SEARCH_URL, params);
     }
 );
+
+export const fetchHistory = actionCreator.async<{ project: string, query: string }, HistoryResult[]>('FETCH_HISTORY');
+export const fetchHistoryWorker = bindThunkAction(
+    fetchHistory ,
+    async (params) => {
+        return await $.post(HISTORY_SEARCH_URL, params);
+    }
+);
+

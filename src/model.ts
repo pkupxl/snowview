@@ -106,3 +106,9 @@ export interface CommitResult{
   diffSummary:string;
   diffMessage:string;
 }
+
+export interface HistoryResult{
+  preContent:string;
+  content:string;
+  commitMessage:string;
+}
