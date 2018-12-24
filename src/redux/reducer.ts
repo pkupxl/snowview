@@ -1,9 +1,9 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import {
-    fetchDocumentResult, fetchIssue,fetchCommit
+    fetchDocumentResult, fetchIssue,fetchCommit,fetchHistory,
 } from './action';
 import { combineReducers } from 'redux';
-import { DocumentResult ,IssueResult ,CommitResult} from '../model';
+import { DocumentResult ,IssueResult ,CommitResult ,HistoryResult} from '../model';
 import { show } from 'js-snackbar';
 import { graph, GraphState } from './graphReducer';
 
@@ -37,12 +37,19 @@ export interface CommitResultState{
     query:string;
     result?:CommitResult[];
 }
+export interface HistoryResultState{
+    fetching:boolean;
+    query:string;
+    result?:HistoryResult[];
+}
+
 export interface RootState {
   fetchingRandomQuestion: boolean;
   graph: GraphState;
   documentResult: DocumentResultState;
   issueResult:IssueResultState;
   commitResult:CommitResultState;
+  historyResult:HistoryResultState;
 }
 
 const documentResult =
@@ -78,6 +85,15 @@ const commitResult =
         .case(fetchCommit.failed, (state, payload) =>
             withError('Failed to present', {fetching: false, query: payload.params.query}));
 
+const historyResult =
+    reducerWithInitialState<HistoryResultState>({fetching: false, query: ''})
+        .case(fetchHistory.started, (state, payload) => ({fetching: true, query: payload.query}))
+        .case(fetchHistory.done, (state, payload) => ({ fetching: false, query: payload.params.query, result: payload.result
+        }))
+        .case(fetchHistory.failed, (state, payload) =>
+            withError('Failed to present', {fetching: false, query: payload.params.query}));
+
+
 export const appReducer = combineReducers({
-  graph, documentResult ,issueResult, commitResult
+  graph, documentResult ,issueResult, commitResult ,historyResult
 });
