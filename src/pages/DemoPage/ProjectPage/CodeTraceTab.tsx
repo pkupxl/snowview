@@ -64,6 +64,7 @@ class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle
                     issueCallback={(param: { query: string }) => fetchIssueWorker({project, query: param.query})}
                     commitCallback={(param: { query: string }) => fetchCommitWorker({project, query: param.query})}
                     historyCallback={(param: { query: string }) => fetchHistoryWorker({project, query: param.query})}
+                    project={project}
                 />
 
                 <div className={classes.right}>

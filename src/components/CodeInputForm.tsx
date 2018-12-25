@@ -11,9 +11,11 @@ import 'brace/theme/github';
 import Button from 'material-ui/Button/Button';
 import RegularCard from './Cards/RegularCard';
 import 'ace-diff/dist/ace-diff.min.css';
-import AceDiff from 'ace-diff';
-import Swal from 'sweetalert2';
-
+//import AceDiff from 'ace-diff';
+//import Swal from 'sweetalert2';
+import {Route, Switch} from "react-router";
+import History from "../pages/DemoPage/ProjectPage/History";
+import {Link} from "react-router-dom";
 
 const styles = (theme: Theme) => ({
     container: {
@@ -53,6 +55,7 @@ interface CodeInputFormProps {
     historyCallback: Function;
     dispatch: Dispatch<RootState>;
     historyResult: HistoryResultState;
+    project:string;
 }
 
 const mapStateToProps = (state: RootState) => ({
@@ -87,7 +90,7 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
         this.setState({input: s});
     }
 
-    handleTrace = () => {
+   /* handleTrace = () => {
         require('../assets/css/cs.css');
         const {historyResult} =this.props;
         var htmlContent = '<div class="slider" style="height:50%">';
@@ -99,7 +102,7 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
             for (let i = historyResult.result.length-1 ; i >= 0; --i) {
                 htmlContent += '<div id ="slide-' + i.toString() + '" style="display:flex; height: available">';
      //           htmlContent +='<div>' +'<h1>CommitMessage</h1>'+historyResult.result[i].commitMessage + '</div>'+'<br/>';
-                htmlContent += '<div class = "acediff-' + i + '" style="height:70%;bottom:0px;width:100%;background:#000000;"></div>';
+                htmlContent += '<div class = "acediff-' + i + '" style="height:100%;bottom:0px;width:100%;background:#000000;"></div>';
                 htmlContent += '</div>';
             }
             htmlContent += '</div>';
@@ -134,10 +137,10 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
                 });
             }
         }
-    }
+    }*/
 
     render() {
-        const {classes } = this.props;
+        const {classes,project } = this.props;
         return (
             <div className={classes.form}>
                 <RegularCard headerColor="blue" cardTitle="请输入代码:">
@@ -151,18 +154,24 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
                     width={'100%'}
                        height={'300px'}
                 />
-                    <Button color="primary" className={classes.button} onClick={this.handleTrace}>
-                        回溯历史
+                    <Button color="primary" className={classes.button} >
+                        <Link to={{pathname: `/demo/${project}/codetrace/history`}}>回溯历史
+                        </Link>
                     </Button>
                 <Button color="primary" className={classes.button} onClick={this.handleSubmit}>
-                    提交
+                    <Link to={{pathname: `/demo/${project}/codetrace`}}>提交
+                    </Link>
                 </Button>
                 </RegularCard>
+
+                <Switch>
+                    <Route path='/demo/:project/codetrace/history' component={History}/>
+                </Switch>
             </div>
         );
     }
 }
 
 export default withStyles(styles)<{
-    issueCallback: Function, commitCallback: Function, historyCallback: Function, query?: string
+    issueCallback: Function, commitCallback: Function, historyCallback: Function, query?: string ,project:string,
 }>(connect(mapStateToProps)(CodeInputForm));

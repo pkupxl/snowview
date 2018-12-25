@@ -32,12 +32,12 @@ declare module 'ace-diff' {
     }
 
     export default class AceDiff {
-        constructor(opts: AceDiff.AceDiffConstructorOpts);
+        constructor(opts:AceDiffConstructorOpts);
         getEditors(): {
             left: any;
             right: any;
         };
-        setOptions(options: AceDiff.AceDiffOpts): void;
+        setOptions(options: AceDiffOpts): void;
         getNumDiffs(): number;
         diff(): void;
         destroy(): void;
