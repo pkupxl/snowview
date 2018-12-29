@@ -5,13 +5,19 @@ import {  RootState, HistoryResultState } from '../../../redux/reducer';
 import { connect } from 'react-redux';
 import {RouteComponentProps} from 'react-router';
 import AceDiff from "ace-diff";
+import RegularCard from "../../../components/Cards/RegularCard";
 
 
 
 const styles = (theme: Theme) => ({
-    container:{
-
-    } ,
+    form: {
+        paddingTop: '15px',
+        //  paddingBottom: '100px',
+        width: '95%',
+        //       left:'100px',
+        //       display:'fixed',
+        float: 'left',
+    },
     progress:{
         flexGrow: 1,
         margin: theme.spacing.unit * 4
@@ -33,7 +39,7 @@ interface HistoryProps extends RouteComponentProps<HistoryRouteProps> {
     historyResult: HistoryResultState;
 }
 
-type HistoryStyle = WithStyles<'container' | 'progress' | 'right'>;
+type HistoryStyle = WithStyles<'form' | 'progress' | 'right'>;
 
 class History extends React.Component<HistoryProps & HistoryStyle, {}> {
 
@@ -61,6 +67,7 @@ class History extends React.Component<HistoryProps & HistoryStyle, {}> {
             }
         }
     }
+
     render() {
         require('../../../assets/css/cs.css');
         const { historyResult ,classes } = this.props;
@@ -81,9 +88,11 @@ class History extends React.Component<HistoryProps & HistoryStyle, {}> {
         htmlContent += '</div>';
 
         return (
-                    <div>
+                    <div className={classes.form}>
+                        <RegularCard headerColor="blue" cardTitle="代码历史">
                         {historyResult.fetching && <LinearProgress className={classes.progress}/>}
                         {historyResult.result && <div dangerouslySetInnerHTML={{__html:htmlContent}}/>}
+                        </RegularCard>
                     </div>
         );
     }

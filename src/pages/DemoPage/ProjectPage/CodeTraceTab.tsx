@@ -14,7 +14,6 @@ import {Link} from "react-router-dom";
 import History from "./History";
 
 
-
 const styles = (theme: Theme) => ({
     container: {
         ...container,
@@ -25,9 +24,9 @@ const styles = (theme: Theme) => ({
     },
     right:{
      //   paddingTop:'20px',
-        paddingleft:'30%',
+   //     paddingleft:'30%',
    //     paddingright:'3px',
-        width:'90%',
+  //      width:'95%',
     /*    float:'right',
         display:'fixed',*/
 

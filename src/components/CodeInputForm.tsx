@@ -69,6 +69,7 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
         input: ''
     };
 
+
     componentDidMount() {
         this.setState({input: this.props.query || ''});
     }
@@ -94,9 +95,8 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
         //   event.preventDefault();
         const {dispatch, historyCallback} = this.props;
         dispatch(historyCallback({query: this.state.input}));
-
-
-
+     //   window.location.href=`/demo/${project}/codetrace/history`;
+   //     this.props.history.push()
     }
 
     render() {
