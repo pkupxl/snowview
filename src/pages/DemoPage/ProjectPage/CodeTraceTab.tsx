@@ -11,6 +11,7 @@ import CommitTab from "./CommitTab";
 import IssueTab from "./IssueTab";
 import Button from 'material-ui/Button';
 import {Link} from "react-router-dom";
+import History from "./History";
 
 
 
@@ -54,7 +55,7 @@ type CodeTraceTabStyle = WithStyles<'container' | 'progress' | 'right'>;
 class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle, {}> {
 
     render() {
-        const { issueResult , classes} = this.props;
+        const { issueResult , classes } = this.props;
         const project = this.props.match.params.project;
 
         return (
@@ -82,12 +83,20 @@ class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle
                             ISSUE
                         </Link>
                     </Button>
-
+                    <Button >
+                        <Link to={{
+                            pathname: `/demo/${project}/codetrace/history`
+                        }}>
+                            History
+                        </Link>
+                    </Button>
                     <Switch>
                         <Route path='/demo/:project/codetrace/issue' component={IssueTab}/>
                         <Route exact={true} path='/demo/:project/codetrace' component={CommitTab}/>
+                        <Route path='/demo/:project/codetrace/history' component={History}/>
                     </Switch>
                 </div>
+
             </div>
         );
     }

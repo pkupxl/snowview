@@ -13,8 +13,8 @@ import RegularCard from './Cards/RegularCard';
 import 'ace-diff/dist/ace-diff.min.css';
 //import AceDiff from 'ace-diff';
 //import Swal from 'sweetalert2';
-import {Route, Switch} from "react-router";
-import History from "../pages/DemoPage/ProjectPage/History";
+/*import {Route, Switch} from "react-router";
+import History from "../pages/DemoPage/ProjectPage/History";*/
 import {Link} from "react-router-dom";
 
 const styles = (theme: Theme) => ({
@@ -79,68 +79,28 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
 
     handleSubmit = (event: {}) => {
      //   event.preventDefault();
-        const {dispatch, issueCallback, commitCallback , historyCallback } = this.props;
+        const {dispatch, issueCallback, commitCallback } = this.props;
 
         dispatch(issueCallback({query: this.state.input}));
         dispatch(commitCallback({query: this.state.input}));
-        dispatch(historyCallback({query: this.state.input}));
+  //      dispatch(historyCallback({query: this.state.input}));
     }
 
     handleChange = (s: string, event: ChangeEvent<HTMLInputElement>) => {
         this.setState({input: s});
     }
 
-   /* handleTrace = () => {
-        require('../assets/css/cs.css');
-        const {historyResult} =this.props;
-        var htmlContent = '<div class="slider" style="height:50%">';
-        if (historyResult.result) {
-            for(let i=0;i<historyResult.result.length; ++i){
-                htmlContent += '<a href="#slide-' + (historyResult.result.length-1-i).toString() + '">' + i.toString() + '</a>';
-            }
-            htmlContent += '<div class="slides">';
-            for (let i = historyResult.result.length-1 ; i >= 0; --i) {
-                htmlContent += '<div id ="slide-' + i.toString() + '" style="display:flex; height: available">';
-     //           htmlContent +='<div>' +'<h1>CommitMessage</h1>'+historyResult.result[i].commitMessage + '</div>'+'<br/>';
-                htmlContent += '<div class = "acediff-' + i + '" style="height:100%;bottom:0px;width:100%;background:#000000;"></div>';
-                htmlContent += '</div>';
-            }
-            htmlContent += '</div>';
-        }
-        htmlContent += '</div>';
-
-        Swal({
-            html: htmlContent,
-            width: '90%',
-      //      heightAuto: true,
-       //     grow: 'column',
-        });
+    handleTrace = (event: {}) => {
+        //   event.preventDefault();
+        const {dispatch, historyCallback} = this.props;
+        dispatch(historyCallback({query: this.state.input}));
 
 
-        if (historyResult.result) {
-            for (let i = 0 ; i < historyResult.result.length; ++i) {
-               new AceDiff({
-                    element: '.acediff-' + i,
-                   diffGranularity: 'broad',
-                    left: {
-                        content : historyResult.result[i].preContent === null ? '' : historyResult.result[i].preContent,
-                    },
-                    right: {
-                        content : historyResult.result[i].content === null ? '' : historyResult.result[i].content,
-                    },
-                   classes: {
-                       diff: 'acediff__diffLine',
-                       connector: 'acediff__connector',
-                       newCodeConnectorLinkContent: '&#8594;',
-                       deletedCodeConnectorLinkContent: '&#8592;',
-                   },
-                });
-            }
-        }
-    }*/
+
+    }
 
     render() {
-        const {classes,project } = this.props;
+        const {classes,project} = this.props;
         return (
             <div className={classes.form}>
                 <RegularCard headerColor="blue" cardTitle="请输入代码:">
@@ -154,19 +114,18 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
                     width={'100%'}
                        height={'300px'}
                 />
-                    <Button color="primary" className={classes.button} >
-                        <Link to={{pathname: `/demo/${project}/codetrace/history`}}>回溯历史
+                    <Button color="primary" className={classes.button} onClick={this.handleTrace}>
+                        {/*<Link to={{pathname: `/demo/${project}/codetrace/history`}}>回溯历史
+                        </Link>*/}
+                        回溯历史
+                    </Button>
+
+                    <Button color="primary" className={classes.button} onClick={this.handleSubmit}>
+                        <Link to={{pathname: `/demo/${project}/codetrace`}}>提交
                         </Link>
                     </Button>
-                <Button color="primary" className={classes.button} onClick={this.handleSubmit}>
-                    <Link to={{pathname: `/demo/${project}/codetrace`}}>提交
-                    </Link>
-                </Button>
                 </RegularCard>
 
-                <Switch>
-                    <Route path='/demo/:project/codetrace/history' component={History}/>
-                </Switch>
             </div>
         );
     }

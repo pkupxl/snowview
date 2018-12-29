@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {withStyles, WithStyles } from 'material-ui';
+import {LinearProgress, withStyles, WithStyles} from 'material-ui';
 import { Theme } from 'material-ui/styles';
-import { IssueResultState, CommitResultState, RootState, HistoryResultState } from '../../../redux/reducer';
+import {  RootState, HistoryResultState } from '../../../redux/reducer';
 import { connect } from 'react-redux';
 import {RouteComponentProps} from 'react-router';
 import AceDiff from "ace-diff";
@@ -13,7 +13,8 @@ const styles = (theme: Theme) => ({
 
     } ,
     progress:{
-
+        flexGrow: 1,
+        margin: theme.spacing.unit * 4
     },
     right:{
 
@@ -21,8 +22,6 @@ const styles = (theme: Theme) => ({
 }) as React.CSSProperties;
 
 const mapStateToProps = (state: RootState) => ({
-    issueResult: state.issueResult,
-    commitResult:state.commitResult,
     historyResult:state.historyResult
 });
 
@@ -31,8 +30,6 @@ interface HistoryRouteProps {
 }
 
 interface HistoryProps extends RouteComponentProps<HistoryRouteProps> {
-    issueResult: IssueResultState;
-    commitResult: CommitResultState;
     historyResult: HistoryResultState;
 }
 
@@ -65,7 +62,8 @@ class History extends React.Component<HistoryProps & HistoryStyle, {}> {
         }
     }
     render() {
-        const { historyResult  } = this.props;
+        require('../../../assets/css/cs.css');
+        const { historyResult ,classes } = this.props;
         var htmlContent = '<div class="slider" style="height:50%">';
         if (historyResult.result) {
             for(let i=0;i<historyResult.result.length; ++i){
@@ -81,10 +79,12 @@ class History extends React.Component<HistoryProps & HistoryStyle, {}> {
             htmlContent += '</div>';
         }
         htmlContent += '</div>';
+
         return (
-            <div>
-                <div dangerouslySetInnerHTML={{__html:htmlContent}}/>
-            </div>
+                    <div>
+                        {historyResult.fetching && <LinearProgress className={classes.progress}/>}
+                        {historyResult.result && <div dangerouslySetInnerHTML={{__html:htmlContent}}/>}
+                    </div>
         );
     }
 }
