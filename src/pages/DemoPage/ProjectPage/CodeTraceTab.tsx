@@ -13,7 +13,6 @@ import {Link} from "react-router-dom";
 import History from "./History";
 import CommitTab from "./CommitTab";
 import RegularCard from "../../../components/Cards/RegularCard";
-//import MyTimeline from "./Timeline";
 
 const styles = (theme: Theme) => ({
     container: {
@@ -83,18 +82,10 @@ class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle
                             History
                         </Link>
                     </Button>
-                        {/*<Button>
-                            <Link to={{
-                                pathname: `/demo/${project}/codetrace/timeline`
-                            }}>
-                                timeline
-                            </Link>
-                        </Button>*/}
                     <Switch>
                         <Route path='/demo/:project/codetrace/issue' component={IssueTab}/>
                         <Route exact={true} path='/demo/:project/codetrace' component={CommitTab}/>
                         <Route path='/demo/:project/codetrace/history' component={History}/>
-                       {/* <Route path='/demo/:project/codetrace/timeline' component={MyTimeline}/>*/}
                     </Switch>
                     </RegularCard>
                 </div>

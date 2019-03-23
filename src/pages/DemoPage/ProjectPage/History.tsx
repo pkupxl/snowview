@@ -13,7 +13,10 @@ import Typography from "material-ui/Typography";*/
 const styles = (theme: Theme) => ({
     form: {
         paddingTop: '15px',
+        //  paddingBottom: '100px',
         width: '95%',
+        //       left:'100px',
+        //       display:'fixed',
         float: 'left',
     },
     progress:{
@@ -21,6 +24,7 @@ const styles = (theme: Theme) => ({
         margin: theme.spacing.unit * 4
     },
     right:{
+    //    ...theme.mixins.gutters(1),
         paddingTop: theme.spacing.unit * 2,
         paddingBottom: theme.spacing.unit * 2,
     }
@@ -96,7 +100,7 @@ class History extends React.Component<HistoryProps & HistoryStyle, {}> {
     render() {
         require('../../../assets/css/cs.css');
         const { historyResult ,classes } = this.props;
-        var htmlContent = '<div class="slider" style="height:10%">';
+        var htmlContent = '<div class="slider" style="height:100%">';
         if (historyResult.result) {
             /*for(let i=0;i<historyResult.result.length; ++i){
                 htmlContent += '<a href="#slide-' + (historyResult.result.length-1-i).toString() + '">' + i.toString() + '</a>';
