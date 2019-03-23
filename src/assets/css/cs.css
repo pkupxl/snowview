@@ -6,6 +6,7 @@
   width: 100%;
   text-align: center;
   overflow: hidden;
+/*  height:50%;*/
 }
 
 .slides {
@@ -113,3 +114,15 @@ body {
   background: linear-gradient(to bottom, #74ABE2, #5563DE);
   font-family: 'Ropa Sans', sans-serif;
 }*/
+
+.slide-{
+  display:flex;
+  height: available;
+}
+
+.acediffstyle{
+  height:100%;
+  bottom:0px;
+  width:100%;
+  background:#000000;
+}

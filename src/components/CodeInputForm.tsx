@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import {  withStyles, WithStyles } from 'material-ui';
+import {InputLabel,FormControl} from 'material-ui';
+import Select from 'material-ui/Select';
+import Input from 'material-ui/Input';
+import { withStyles, WithStyles} from 'material-ui';
 import { RootState , HistoryResultState } from '../redux/reducer';
 import { Dispatch } from 'redux';
 import { Theme } from 'material-ui/styles';
@@ -46,6 +49,7 @@ const styles = (theme: Theme) => ({
         width: '100%',
         background: '#000000',
     }
+
 });
 
 interface CodeInputFormProps {
@@ -64,11 +68,12 @@ const mapStateToProps = (state: RootState) => ({
 
 type CodeInputFormStyles = WithStyles<'container' | 'form' | 'search' | 'button' | 'acediff'>;
 
-class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormStyles , { input: string }> {
+class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormStyles> {
     state = {
-        input: ''
+        input: "",
     };
 
+    type: HTMLInputElement;
 
     componentDidMount() {
         this.setState({input: this.props.query || ''});
@@ -82,8 +87,8 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
      //   event.preventDefault();
         const {dispatch, issueCallback, commitCallback } = this.props;
 
-        dispatch(issueCallback({query: this.state.input}));
-        dispatch(commitCallback({query: this.state.input}));
+        dispatch(issueCallback({query: this.state.input ,type:this.type.value}));
+        dispatch(commitCallback({query: this.state.input,type:this.type.value}));
   //      dispatch(historyCallback({query: this.state.input}));
     }
 
@@ -94,7 +99,7 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
     handleTrace = (event: {}) => {
         //   event.preventDefault();
         const {dispatch, historyCallback} = this.props;
-        dispatch(historyCallback({query: this.state.input}));
+        dispatch(historyCallback({query: this.state.input,type:this.type.value}));
      //   window.location.href=`/demo/${project}/codetrace/history`;
    //     this.props.history.push()
     }
@@ -104,6 +109,21 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
         return (
             <div className={classes.form}>
                 <RegularCard headerColor="blue" cardTitle="请输入代码:">
+                    <FormControl>
+                        <InputLabel htmlFor="inputType">输入类型</InputLabel>
+                        <Select
+                            native={true}
+                            input={<Input id="inputType" inputRef={(input) => {this.type = input}}/>}
+                        >
+                            <option key="OneLine" value="OneLine">One-Line</option>
+                            <option key="MultiLines" value="MultiLines">Multi-Line</option>
+                            <option key="Method" value="Method">Method</option>
+                            <option key="Class" value="Class">Class</option>
+
+                        </Select>
+                    </FormControl>
+
+
                 <AceEditor
                     mode="java"
                     theme="github"
@@ -114,18 +134,19 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
                     width={'100%'}
                        height={'300px'}
                 />
+
+
                     <Button color="primary" className={classes.button} onClick={this.handleTrace}>
-                        {/*<Link to={{pathname: `/demo/${project}/codetrace/history`}}>回溯历史
-                        </Link>*/}
-                        回溯历史
+                        <Link to={{pathname: `/demo/${project}/codetrace/history`}}>回溯历史
+                        </Link>
                     </Button>
 
                     <Button color="primary" className={classes.button} onClick={this.handleSubmit}>
                         <Link to={{pathname: `/demo/${project}/codetrace`}}>提交
                         </Link>
                     </Button>
-                </RegularCard>
 
+                </RegularCard>
             </div>
         );
     }

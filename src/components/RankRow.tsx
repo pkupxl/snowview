@@ -34,7 +34,7 @@ const styles = (theme: Theme) => ({
 
 interface RankRowProps {
   initExpand: boolean;
-  title: string;
+  title: string|JSX.Element;
   detail: string|JSX.Element;
 }
 

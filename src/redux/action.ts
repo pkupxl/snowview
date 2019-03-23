@@ -81,7 +81,9 @@ export const fetchGraphWorker = bindThunkAction(
     return {};
   });
 
-export const fetchIssue = actionCreator.async<{ project: string, query: string }, IssueResult[]>('FETCH_ISSUE');
+
+
+export const fetchIssue = actionCreator.async<{ project: string, query: string ,type:string}, IssueResult[]>('FETCH_ISSUE');
 export const fetchIssueWorker = bindThunkAction(
     fetchIssue ,
     async (params) => {
@@ -90,7 +92,7 @@ export const fetchIssueWorker = bindThunkAction(
 );
 
 
-export const fetchCommit = actionCreator.async<{ project: string, query: string }, CommitResult[]>('FETCH_COMMIT');
+export const fetchCommit = actionCreator.async<{ project: string, query: string ,type:string}, CommitResult[]>('FETCH_COMMIT');
 export const fetchCommitWorker = bindThunkAction(
     fetchCommit ,
     async (params) => {
@@ -98,7 +100,7 @@ export const fetchCommitWorker = bindThunkAction(
     }
 );
 
-export const fetchHistory = actionCreator.async<{ project: string, query: string }, HistoryResult[]>('FETCH_HISTORY');
+export const fetchHistory = actionCreator.async<{ project: string, query: string ,type:string}, HistoryResult[]>('FETCH_HISTORY');
 export const fetchHistoryWorker = bindThunkAction(
     fetchHistory ,
     async (params) => {

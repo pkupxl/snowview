@@ -7,29 +7,22 @@ import { connect } from 'react-redux';
 import { fetchIssueWorker ,fetchCommitWorker ,fetchHistoryWorker} from '../../../redux/action';
 import {Route, RouteComponentProps, Switch} from 'react-router';
 import { container} from '../../../variables/styles';
-import CommitTab from "./CommitTab";
 import IssueTab from "./IssueTab";
 import Button from 'material-ui/Button';
 import {Link} from "react-router-dom";
 import History from "./History";
-
+import CommitTab from "./CommitTab";
+import RegularCard from "../../../components/Cards/RegularCard";
+//import MyTimeline from "./Timeline";
 
 const styles = (theme: Theme) => ({
     container: {
         ...container,
     },
-    progress: {
-        flexGrow: 1,
-        margin: theme.spacing.unit * 4
-    },
-    right:{
-     //   paddingTop:'20px',
-   //     paddingleft:'30%',
-   //     paddingright:'3px',
-  //      width:'95%',
-    /*    float:'right',
-        display:'fixed',*/
-
+    form: {
+        paddingTop: '15px',
+        width: '95%',
+        float: 'left',
     },
 }) as React.CSSProperties;
 
@@ -49,53 +42,62 @@ interface CodeTraceTabProps extends RouteComponentProps<CodeTraceTabRouteProps> 
     historyResult: HistoryResultState;
 }
 
-type CodeTraceTabStyle = WithStyles<'container' | 'progress' | 'right'>;
+type CodeTraceTabStyle = WithStyles<'container' | 'form'>;
 
 class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle, {}> {
 
     render() {
-        const { issueResult , classes } = this.props;
+        const { issueResult,classes } = this.props;
         const project = this.props.match.params.project;
 
         return (
             <div>
                 <CodeInputForm
                     query={issueResult.query}
-                    issueCallback={(param: { query: string }) => fetchIssueWorker({project, query: param.query})}
-                    commitCallback={(param: { query: string }) => fetchCommitWorker({project, query: param.query})}
-                    historyCallback={(param: { query: string }) => fetchHistoryWorker({project, query: param.query})}
+                    issueCallback={(param: { query: string, type:string }) => fetchIssueWorker({project, query: param.query, type:param.type})}
+                    commitCallback={(param: { query: string, type:string  }) => fetchCommitWorker({project, query: param.query, type:param.type})}
+                    historyCallback={(param: { query: string, type:string }) => fetchHistoryWorker({project, query: param.query, type:param.type})}
                     project={project}
                 />
 
-                <div className={classes.right}>
-                    <Button >
+                <div className={classes.form}>
+                    <RegularCard headerColor="blue" cardTitle="代码历史信息" >
+                    <Button>
                         <Link to={{
                             pathname: `/demo/${project}/codetrace`
                         }}>
                             COMMIT
                         </Link>
                     </Button>
-                    <Button >
+                    <Button>
                         <Link to={{
                             pathname: `/demo/${project}/codetrace/issue`
                         }}>
                             ISSUE
                         </Link>
                     </Button>
-                    <Button >
+                    <Button>
                         <Link to={{
                             pathname: `/demo/${project}/codetrace/history`
                         }}>
                             History
                         </Link>
                     </Button>
+                        {/*<Button>
+                            <Link to={{
+                                pathname: `/demo/${project}/codetrace/timeline`
+                            }}>
+                                timeline
+                            </Link>
+                        </Button>*/}
                     <Switch>
                         <Route path='/demo/:project/codetrace/issue' component={IssueTab}/>
                         <Route exact={true} path='/demo/:project/codetrace' component={CommitTab}/>
                         <Route path='/demo/:project/codetrace/history' component={History}/>
+                       {/* <Route path='/demo/:project/codetrace/timeline' component={MyTimeline}/>*/}
                     </Switch>
+                    </RegularCard>
                 </div>
-
             </div>
         );
     }

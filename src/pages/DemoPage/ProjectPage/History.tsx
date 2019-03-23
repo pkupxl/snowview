@@ -5,17 +5,15 @@ import {  RootState, HistoryResultState } from '../../../redux/reducer';
 import { connect } from 'react-redux';
 import {RouteComponentProps} from 'react-router';
 import AceDiff from "ace-diff";
-import RegularCard from "../../../components/Cards/RegularCard";
+/*import Paper from "material-ui/Paper";
+import Typography from "material-ui/Typography";*/
 
 
 
 const styles = (theme: Theme) => ({
     form: {
         paddingTop: '15px',
-        //  paddingBottom: '100px',
         width: '95%',
-        //       left:'100px',
-        //       display:'fixed',
         float: 'left',
     },
     progress:{
@@ -23,7 +21,8 @@ const styles = (theme: Theme) => ({
         margin: theme.spacing.unit * 4
     },
     right:{
-
+        paddingTop: theme.spacing.unit * 2,
+        paddingBottom: theme.spacing.unit * 2,
     }
 }) as React.CSSProperties;
 
@@ -43,9 +42,9 @@ type HistoryStyle = WithStyles<'form' | 'progress' | 'right'>;
 
 class History extends React.Component<HistoryProps & HistoryStyle, {}> {
 
-    componentDidMount(){
+    componentDidUpdate(){
         require('../../../assets/css/cs.css');
-        const { historyResult  } = this.props;
+        const { historyResult } = this.props;
         if (historyResult.result) {
             for (let i = 0 ; i < historyResult.result.length; ++i) {
                 new AceDiff({
@@ -66,21 +65,48 @@ class History extends React.Component<HistoryProps & HistoryStyle, {}> {
                 });
             }
         }
+
+    }
+    componentDidMount(){
+        require('../../../assets/css/cs.css');
+        const { historyResult } = this.props;
+        if (historyResult.result) {
+            for (let i = 0 ; i < historyResult.result.length; ++i) {
+                new AceDiff({
+                    element: '.acediff-' + i,
+                    diffGranularity: 'broad',
+                    left: {
+                        content : historyResult.result[i].preContent === null ? '' : historyResult.result[i].preContent,
+                    },
+                    right: {
+                        content : historyResult.result[i].content === null ? '' : historyResult.result[i].content,
+                    },
+                    classes: {
+                        diff: 'acediff__diffLine',
+                        connector: 'acediff__connector',
+                        newCodeConnectorLinkContent: '&#8594;',
+                        deletedCodeConnectorLinkContent: '&#8592;',
+                    },
+                });
+            }
+        }
+
     }
 
     render() {
         require('../../../assets/css/cs.css');
         const { historyResult ,classes } = this.props;
-        var htmlContent = '<div class="slider" style="height:50%">';
+        var htmlContent = '<div class="slider" style="height:10%">';
         if (historyResult.result) {
-            for(let i=0;i<historyResult.result.length; ++i){
+            /*for(let i=0;i<historyResult.result.length; ++i){
                 htmlContent += '<a href="#slide-' + (historyResult.result.length-1-i).toString() + '">' + i.toString() + '</a>';
-            }
+            }*/
+
             htmlContent += '<div class="slides">';
             for (let i = historyResult.result.length-1 ; i >= 0; --i) {
                 htmlContent += '<div id ="slide-' + i.toString() + '" style="display:flex; height: available">';
-                //           htmlContent +='<div>' +'<h1>CommitMessage</h1>'+historyResult.result[i].commitMessage + '</div>'+'<br/>';
-                htmlContent += '<div class = "acediff-' + i + '" style="height:100%;bottom:0px;width:100%;background:#000000;"></div>';
+                          htmlContent +='<div>' +'<h1>CommitMessage</h1>'+historyResult.result[i].commitMessage + '</div>'+'<br/>';
+                htmlContent += '<div class = "acediff-' + i + '" style="height:10%;bottom:0px;width:100%;background:#000000; padding-top: 10%"></div>';
                 htmlContent += '</div>';
             }
             htmlContent += '</div>';
@@ -88,12 +114,48 @@ class History extends React.Component<HistoryProps & HistoryStyle, {}> {
         htmlContent += '</div>';
 
         return (
-                    <div className={classes.form}>
-                        <RegularCard headerColor="blue" cardTitle="代码历史">
-                        {historyResult.fetching && <LinearProgress className={classes.progress}/>}
-                        {historyResult.result && <div dangerouslySetInnerHTML={{__html:htmlContent}}/>}
-                        </RegularCard>
+            <div className={classes.form}>
+                {historyResult.fetching && <LinearProgress className={classes.progress}/>}
+               {historyResult.result && <div dangerouslySetInnerHTML={{__html:htmlContent}}/>}
+               {/* {historyResult.result &&
+                    <div>
+                    <div className={'slider'} >
+                        {
+                            historyResult.result.map((r,index)=>(
+                                    <a href={"#slide-" + index}>{index}</a>
+                                )
+                            )
+                        }
+                        <div className="slides">
+                        {
+                            historyResult.result.map((r,index) => {
+                                return (
+                                        <div>
+                                            <div>
+                                                <Paper className={classes.right} elevation={1}>
+                                                    <Typography >
+                                                        {historyResult.result && historyResult.result[index].commitMessage}
+                                                    </Typography>
+                                                </Paper>
+                                                <div>CommitMessage</div>
+                                                <div>{historyResult.result && historyResult.result[index].commitMessage}</div>
+                                            </div>
+                                            <br/>
+                                            <div id={"slide-"+index} className={"slide-"}>
+                                                <div id={"acediff-" + index} className={"acediffstyle"}>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            )
+                        }
+                        </div>
+
                     </div>
+                    </div>
+                }*/}
+            </div>
         );
     }
 }
