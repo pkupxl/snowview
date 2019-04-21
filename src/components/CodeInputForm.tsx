@@ -86,7 +86,6 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
     handleSubmit = (event: {}) => {
      //   event.preventDefault();
         const {dispatch, issueCallback, commitCallback } = this.props;
-
         dispatch(issueCallback({query: this.state.input ,type:this.type.value}));
         dispatch(commitCallback({query: this.state.input,type:this.type.value}));
   //      dispatch(historyCallback({query: this.state.input}));
@@ -132,12 +131,12 @@ class CodeInputForm extends React.Component<CodeInputFormProps & CodeInputFormSt
                     editorProps={{$blockScrolling: true}}
                     onChange={this.handleChange}
                     width={'100%'}
-                       height={'300px'}
+                       height={'100px'}
                 />
 
 
                     <Button color="primary" className={classes.button} onClick={this.handleTrace}>
-                        <Link to={{pathname: `/demo/${project}/codetrace/history`}}>回溯历史
+                        <Link to={{pathname: `/demo/${project}/codetrace/timeline`}}>回溯历史
                         </Link>
                     </Button>
 

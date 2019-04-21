@@ -10,9 +10,10 @@ import { container} from '../../../variables/styles';
 import IssueTab from "./IssueTab";
 import Button from 'material-ui/Button';
 import {Link} from "react-router-dom";
-import History from "./History";
+//import History from "./History";
 import CommitTab from "./CommitTab";
 import RegularCard from "../../../components/Cards/RegularCard";
+import Timeline from "./Timeline";
 
 const styles = (theme: Theme) => ({
     container: {
@@ -75,17 +76,25 @@ class CodeTraceTab extends React.Component<CodeTraceTabProps & CodeTraceTabStyle
                             ISSUE
                         </Link>
                     </Button>
-                    <Button>
+                   {/* <Button>
                         <Link to={{
                             pathname: `/demo/${project}/codetrace/history`
                         }}>
                             History
                         </Link>
-                    </Button>
+                    </Button>*/}
+                        <Button>
+                            <Link to={{
+                                pathname: `/demo/${project}/codetrace/timeline`
+                            }}>
+                                Timeline
+                            </Link>
+                        </Button>
                     <Switch>
                         <Route path='/demo/:project/codetrace/issue' component={IssueTab}/>
                         <Route exact={true} path='/demo/:project/codetrace' component={CommitTab}/>
-                        <Route path='/demo/:project/codetrace/history' component={History}/>
+                        {/*<Route path='/demo/:project/codetrace/history' component={History}/>*/}
+                        <Route path='/demo/:project/codetrace/timeline' component={Timeline}/>
                     </Switch>
                     </RegularCard>
                 </div>

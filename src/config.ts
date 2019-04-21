@@ -8,6 +8,7 @@ export const NAV_URL = `${SERVER_URL}/nav`;
 export const ISSUE_SEARCH_URL = `${SERVER_URL}/issueSearch`;
 export const COMMIT_SEARCH_URL = `${SERVER_URL}/commitSearch`;
 export const HISTORY_SEARCH_URL = `${SERVER_URL}/historySearch`;
+export const TIMELINE_SEARCH_URL = `${SERVER_URL}/timelineSearch`;
 
 export const DOC_PREDEFINED_QUERIES = [
   'How to write a document into an index?',

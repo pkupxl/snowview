@@ -5,10 +5,6 @@ import {  RootState, HistoryResultState } from '../../../redux/reducer';
 import { connect } from 'react-redux';
 import {RouteComponentProps} from 'react-router';
 import AceDiff from "ace-diff";
-/*import Paper from "material-ui/Paper";
-import Typography from "material-ui/Typography";*/
-
-
 
 const styles = (theme: Theme) => ({
     form: {

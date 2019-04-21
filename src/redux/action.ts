@@ -5,7 +5,8 @@ import { CypherQueryResult, DocumentResult, Neo4jRelation,IssueResult,CommitResu
 import { Neo4jNode } from '../model';
 import { RootState } from './reducer';
 import * as _ from 'lodash';
-import { CODE_SEARCH_URL, DOCUMENT_SEARCH_URL, NODE_INFO_URL, RELATION_LIST_URL, ISSUE_SEARCH_URL, COMMIT_SEARCH_URL,HISTORY_SEARCH_URL} from '../config';
+import { CODE_SEARCH_URL, DOCUMENT_SEARCH_URL, NODE_INFO_URL, RELATION_LIST_URL,
+    ISSUE_SEARCH_URL, COMMIT_SEARCH_URL,HISTORY_SEARCH_URL} from '../config';
 
 const actionCreator = actionCreatorFactory();
 
@@ -107,4 +108,3 @@ export const fetchHistoryWorker = bindThunkAction(
         return await $.post(HISTORY_SEARCH_URL, params);
     }
 );
-

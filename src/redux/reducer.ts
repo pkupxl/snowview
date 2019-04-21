@@ -1,9 +1,9 @@
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import {
-    fetchDocumentResult, fetchIssue,fetchCommit,fetchHistory,
+    fetchDocumentResult, fetchIssue, fetchCommit, fetchHistory,
 } from './action';
 import { combineReducers } from 'redux';
-import { DocumentResult ,IssueResult ,CommitResult ,HistoryResult} from '../model';
+import {DocumentResult, IssueResult, CommitResult, HistoryResult} from '../model';
 import { show } from 'js-snackbar';
 import { graph, GraphState } from './graphReducer';
 
@@ -42,6 +42,7 @@ export interface HistoryResultState{
     query:string;
     result?:HistoryResult[];
 }
+
 
 export interface RootState {
   fetchingRandomQuestion: boolean;

@@ -16,7 +16,7 @@ const styles = (theme: Theme) => ({
 }) as React.CSSProperties;
 
 interface CodeModalProps {
-    content: string;
+    content: string | JSX.Element;
     label: string;
     code: boolean;
 }
@@ -39,7 +39,9 @@ class CodeModal extends React.Component<CodeModalProps & CodeModalStyle, { open:
     render() {
         const {classes, code, content, label} = this.props;
 
-        const c = code ? Prism.highlight(content, Prism.languages.javascript) : content;
+
+        const c = typeof content==="string"? (code ? Prism.highlight(content, Prism.languages.javascript) : content) : content;
+
 
         return (
             <span>
@@ -47,7 +49,8 @@ class CodeModal extends React.Component<CodeModalProps & CodeModalStyle, { open:
                     {label}
                 </Typography>
                 <Dialog fullWidth={true} maxWidth="md"  onRequestClose={this.handleRequestClose} open={this.state.open}>
-                    <pre className={classes.container} dangerouslySetInnerHTML={{__html: c}}/>
+                    {typeof c==="string" &&<pre className={classes.container} dangerouslySetInnerHTML={{__html: c}}/>}
+                    {typeof c!=="string" && c}
                 </Dialog>
             </span>
         );

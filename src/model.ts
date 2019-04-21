@@ -111,4 +111,8 @@ export interface HistoryResult{
   preContent:string;
   content:string;
   commitMessage:string;
+  time:string;
+  changeSummary:string[];
+  hasIssue:boolean;
+  issueId:string;
 }
